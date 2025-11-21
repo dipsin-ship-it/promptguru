@@ -17,7 +17,7 @@ export interface Adapter {
   system_message?: string;
 
   /** Parameter ranges (e.g., temperature: [0.0, 1.0]) */
-  parameters?: Record<string, [number, number]>;
+  parameters?: Record<string, number[]>;
 
   /** Prompt template with placeholders */
   prompt_template: string;
