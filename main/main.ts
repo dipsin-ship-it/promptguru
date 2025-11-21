@@ -12,7 +12,6 @@
 
 import { app, BrowserWindow, Tray, Menu, globalShortcut, nativeImage, type NativeImage } from 'electron';
 import * as path from 'path';
-import * as url from 'url';
 
 // Keep references to prevent garbage collection
 let mainWindow: BrowserWindow | null = null;
@@ -23,6 +22,9 @@ let isAppQuitting = false;
 
 // Check if app is in development mode
 const isDev = process.env.NODE_ENV === 'development' || !app.isPackaged;
+
+// Disable hardware acceleration to prevent GPU crashes
+app.disableHardwareAcceleration();
 
 /**
  * Create the main application window
