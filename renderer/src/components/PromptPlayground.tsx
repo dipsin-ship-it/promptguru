@@ -21,10 +21,6 @@ export const PromptPlayground: React.FC<PromptPlaygroundProps> = ({
 }) => {
   const [builtPrompt, setBuiltPrompt] = useState<string>('');
   const [tokenEstimate, setTokenEstimate] = useState<number>(0);
-  const [validationResult, setValidationResult] = useState<{
-    valid: boolean;
-    errors?: string[];
-  } | null>(null);
   const [copyStatus, setCopyStatus] = useState<'idle' | 'copied'>('idle');
 
   useEffect(() => {
@@ -177,30 +173,6 @@ export const PromptPlayground: React.FC<PromptPlaygroundProps> = ({
           </div>
         )}
 
-        {/* Validation results */}
-        {validationResult && (
-          <div className="playground-section">
-            <label className="section-label">Validation</label>
-            <div
-              className={`validation-result ${
-                validationResult.valid ? 'valid' : 'invalid'
-              }`}
-            >
-              {validationResult.valid ? (
-                <span>✓ Valid prompt structure</span>
-              ) : (
-                <div>
-                  <span>✗ Validation errors:</span>
-                  <ul>
-                    {validationResult.errors?.map((err, idx) => (
-                      <li key={idx}>{err}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );

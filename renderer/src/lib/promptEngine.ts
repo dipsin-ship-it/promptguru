@@ -212,13 +212,13 @@ export class PromptEngine {
    * Export prompt as CSV (useful for bulk operations)
    *
    * @param adapter - The adapter used
-   * @param params - The parameters
+   * @param _params - The parameters (reserved for future use)
    * @param builtPrompt - The built prompt
    * @returns CSV formatted string
    */
   exportCSV(
     adapter: Adapter,
-    params: PromptParams,
+    _params: PromptParams,
     builtPrompt: string
   ): string {
     const escapeCsv = (str: string) => `"${str.replace(/"/g, '""')}"`;

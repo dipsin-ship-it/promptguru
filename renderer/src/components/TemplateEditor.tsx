@@ -115,7 +115,8 @@ export const TemplateEditor: React.FC<TemplateEditorProps> = ({
               {Object.entries(adapter.parameters).map(([key, range]) => {
                 if (!Array.isArray(range) || range.length !== 2) return null;
                 const [min, max] = range;
-                const value = params.customParams[key] ?? (min + max) / 2;
+                const rawValue = params.customParams[key] ?? (min + max) / 2;
+                const value = typeof rawValue === 'number' ? rawValue : parseFloat(String(rawValue)) || (min + max) / 2;
 
                 return (
                   <div key={key} className="parameter-control">
