@@ -128,6 +128,10 @@ Prompt-Guru is a lightweight, privacy-focused desktop application for optimizing
    npm install
    ```
 
+   This will automatically:
+   - Install root dependencies
+   - Install renderer dependencies (via postinstall hook)
+
 3. **Run in development mode**:
    ```bash
    npm run dev
@@ -135,7 +139,10 @@ Prompt-Guru is a lightweight, privacy-focused desktop application for optimizing
 
    This will:
    - Start Vite dev server on http://localhost:5173
+   - Compile TypeScript main process
    - Launch Electron with hot reload
+
+**Note for Windows**: Make sure you're running in PowerShell or Command Prompt (not WSL) for native builds.
 
 ### Build Commands
 
@@ -312,6 +319,21 @@ Create a new JSON file in `renderer/src/lib/adapters/`:
 
 ## Troubleshooting
 
+### "vite is not recognized" or TypeScript errors on first run
+
+This happens if renderer dependencies aren't installed. Run:
+```bash
+npm run setup
+```
+
+Or manually:
+```bash
+cd renderer
+npm install
+```
+
+Then try `npm run dev` again.
+
 ### Windows: Build fails with "NSIS not found"
 
 Install NSIS:
@@ -343,6 +365,14 @@ Ensure Vite dev server is running:
 ```bash
 cd renderer
 npm run dev
+```
+
+### TypeScript errors in main/main.ts
+
+If you see errors about `app.isQuitting`, ensure you're using the latest code:
+```bash
+git pull
+npm install
 ```
 
 ## Contributing

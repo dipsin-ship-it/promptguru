@@ -10,9 +10,16 @@
  * Author: Dipankar
  */
 
-import { app, BrowserWindow, Tray, Menu, globalShortcut, nativeImage } from 'electron';
+import { app, BrowserWindow, Tray, Menu, globalShortcut, nativeImage, type NativeImage } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+
+// Extend the Electron App interface to include our custom property
+declare module 'electron' {
+  interface App {
+    isQuitting?: boolean;
+  }
+}
 
 // Keep references to prevent garbage collection
 let mainWindow: BrowserWindow | null = null;
@@ -88,7 +95,7 @@ function createTray(): void {
   const iconPath = path.join(__dirname, '../../build/tray-icon.png');
 
   // Create a simple icon if the file doesn't exist (for development)
-  let trayIcon: nativeImage;
+  let trayIcon: NativeImage;
   try {
     trayIcon = nativeImage.createFromPath(iconPath);
     if (trayIcon.isEmpty()) {
