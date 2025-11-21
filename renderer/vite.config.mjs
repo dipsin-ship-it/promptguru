@@ -11,15 +11,12 @@ const __dirname = path.dirname(__filename);
 export default defineConfig({
   plugins: [react()],
   base: './',
+  root: '.',
+  publicDir: 'public',
   build: {
     outDir: 'dist',
     emptyOutDir: true,
-    sourcemap: true,  // Enable source maps for debugging
-    rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, 'public/index.html')
-      }
-    }
+    sourcemap: true
   },
   server: {
     port: 5173,
@@ -29,7 +26,5 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src')
     }
-  },
-  // Ensure JSON files are properly handled
-  assetsInclude: ['**/*.json']
+  }
 });

@@ -9,6 +9,14 @@ import React, { useState, useEffect } from 'react';
 import './AdapterList.css';
 import type { Adapter } from '../lib/types';
 
+// Import all adapters statically for better bundling
+import chatgptAdapter from '../lib/adapters/chatgpt.json';
+import claudeAdapter from '../lib/adapters/claude.json';
+import geminiAdapter from '../lib/adapters/gemini.json';
+import stableDiffusionAdapter from '../lib/adapters/stable_diffusion.json';
+import runwayAdapter from '../lib/adapters/runway_video.json';
+import figmaAdapter from '../lib/adapters/figma.json';
+
 interface AdapterListProps {
   onSelectAdapter: (adapter: Adapter) => void;
   selectedAdapterId?: string;
@@ -26,30 +34,20 @@ export const AdapterList: React.FC<AdapterListProps> = ({
     loadAdapters();
   }, []);
 
-  const loadAdapters = async () => {
+  const loadAdapters = () => {
     try {
       setLoading(true);
       setError(null);
 
-      // Import all adapter JSON files directly for better bundling
-      const loadedAdapters: Adapter[] = [];
-
-      // Import each adapter directly
-      const chatgptAdapter = await import('../lib/adapters/chatgpt.json');
-      const claudeAdapter = await import('../lib/adapters/claude.json');
-      const geminiAdapter = await import('../lib/adapters/gemini.json');
-      const stableDiffusionAdapter = await import('../lib/adapters/stable_diffusion.json');
-      const runwayAdapter = await import('../lib/adapters/runway_video.json');
-      const figmaAdapter = await import('../lib/adapters/figma.json');
-
-      loadedAdapters.push(
-        chatgptAdapter.default,
-        claudeAdapter.default,
-        geminiAdapter.default,
-        stableDiffusionAdapter.default,
-        runwayAdapter.default,
-        figmaAdapter.default
-      );
+      // Load all adapters from static imports
+      const loadedAdapters: Adapter[] = [
+        chatgptAdapter as Adapter,
+        claudeAdapter as Adapter,
+        geminiAdapter as Adapter,
+        stableDiffusionAdapter as Adapter,
+        runwayAdapter as Adapter,
+        figmaAdapter as Adapter
+      ];
 
       // Sort by display name
       loadedAdapters.sort((a, b) =>
