@@ -38,7 +38,7 @@ function createWindow(): void {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
       nodeIntegration: false,
-      sandbox: true
+      sandbox: false  // Disable sandbox to allow file:// protocol
     },
     icon: path.join(__dirname, '../../build/icon.png')
   });
@@ -49,24 +49,38 @@ function createWindow(): void {
     mainWindow.loadURL('http://localhost:5173').catch((err) => {
       console.error('Failed to load dev server:', err);
     });
-    // Open DevTools in development
     mainWindow.webContents.openDevTools();
   } else {
     // Production: load from built files
-    mainWindow.loadURL(
-      url.format({
-        pathname: path.join(__dirname, '../../renderer/dist/index.html'),
-        protocol: 'file:',
-        slashes: true
-      })
-    ).catch((err) => {
+    // The path after packaging: app.asar/dist/main/main.js
+    // Renderer is at: app.asar/renderer/dist/index.html
+    const indexPath = path.join(__dirname, '../../renderer/dist/index.html');
+    console.log('Loading production app from:', indexPath);
+    console.log('__dirname:', __dirname);
+    console.log('app.getAppPath():', app.getAppPath());
+
+    mainWindow.loadFile(indexPath).catch((err) => {
       console.error('Failed to load production build:', err);
+      console.error('Attempted path:', indexPath);
     });
+
+    // Enable DevTools in production for debugging (remove after confirming it works)
+    mainWindow.webContents.openDevTools();
   }
 
   // Show window when ready
   mainWindow.once('ready-to-show', () => {
     mainWindow?.show();
+  });
+
+  // Log when DOM is ready
+  mainWindow.webContents.on('did-finish-load', () => {
+    console.log('Renderer finished loading');
+  });
+
+  // Log any load failures
+  mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
+    console.error('Failed to load:', errorCode, errorDescription);
   });
 
   // Minimize to tray instead of closing

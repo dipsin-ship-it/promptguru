@@ -31,14 +31,25 @@ export const AdapterList: React.FC<AdapterListProps> = ({
       setLoading(true);
       setError(null);
 
-      // Import all adapter JSON files
-      const adapterModules = import.meta.glob('../lib/adapters/*.json');
+      // Import all adapter JSON files directly for better bundling
       const loadedAdapters: Adapter[] = [];
 
-      for (const path in adapterModules) {
-        const module = await adapterModules[path]() as { default: Adapter };
-        loadedAdapters.push(module.default);
-      }
+      // Import each adapter directly
+      const chatgptAdapter = await import('../lib/adapters/chatgpt.json');
+      const claudeAdapter = await import('../lib/adapters/claude.json');
+      const geminiAdapter = await import('../lib/adapters/gemini.json');
+      const stableDiffusionAdapter = await import('../lib/adapters/stable_diffusion.json');
+      const runwayAdapter = await import('../lib/adapters/runway_video.json');
+      const figmaAdapter = await import('../lib/adapters/figma.json');
+
+      loadedAdapters.push(
+        chatgptAdapter.default,
+        claudeAdapter.default,
+        geminiAdapter.default,
+        stableDiffusionAdapter.default,
+        runwayAdapter.default,
+        figmaAdapter.default
+      );
 
       // Sort by display name
       loadedAdapters.sort((a, b) =>

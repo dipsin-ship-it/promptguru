@@ -9,6 +9,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     emptyOutDir: true,
+    sourcemap: true,  // Enable source maps for debugging
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, 'public/index.html')
@@ -23,5 +24,7 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src')
     }
-  }
+  },
+  // Ensure JSON files are properly handled
+  assetsInclude: ['**/*.json']
 });
