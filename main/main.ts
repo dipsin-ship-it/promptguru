@@ -14,16 +14,12 @@ import { app, BrowserWindow, Tray, Menu, globalShortcut, nativeImage, type Nativ
 import * as path from 'path';
 import * as url from 'url';
 
-// Extend the Electron App interface to include our custom property
-declare module 'electron' {
-  interface App {
-    isQuitting?: boolean;
-  }
-}
-
 // Keep references to prevent garbage collection
 let mainWindow: BrowserWindow | null = null;
 let tray: Tray | null = null;
+
+// Track if app is quitting to prevent hiding window on close
+let isAppQuitting = false;
 
 // Check if app is in development mode
 const isDev = process.env.NODE_ENV === 'development' || !app.isPackaged;
@@ -75,7 +71,7 @@ function createWindow(): void {
 
   // Minimize to tray instead of closing
   mainWindow.on('close', (event) => {
-    if (!app.isQuitting) {
+    if (!isAppQuitting) {
       event.preventDefault();
       mainWindow?.hide();
     }
@@ -136,7 +132,7 @@ function createTray(): void {
     {
       label: 'Exit',
       click: () => {
-        app.isQuitting = true;
+        isAppQuitting = true;
         app.quit();
       }
     }
@@ -235,7 +231,7 @@ app.on('will-quit', () => {
  * Before quit - allow actual quit
  */
 app.on('before-quit', () => {
-  app.isQuitting = true;
+  isAppQuitting = true;
 });
 
 // Disable hardware acceleration if needed (optional)
