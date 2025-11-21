@@ -40,6 +40,9 @@ export interface PromptParams {
 
   /** Custom parameter values */
   customParams: Record<string, number | string>;
+
+  /** Selected prompt technique */
+  technique?: string;
 }
 
 /**

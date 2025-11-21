@@ -8,6 +8,7 @@
 import React, { useState, useEffect } from 'react';
 import './TemplateEditor.css';
 import type { Adapter, PromptParams } from '../lib/types';
+import { promptTechniques } from '../lib/promptTechniques';
 
 interface TemplateEditorProps {
   adapter: Adapter | null;
@@ -20,7 +21,8 @@ export const TemplateEditor: React.FC<TemplateEditorProps> = ({
 }) => {
   const [params, setParams] = useState<PromptParams>({
     userInput: '',
-    customParams: {}
+    customParams: {},
+    technique: 'none'
   });
 
   useEffect(() => {
@@ -37,7 +39,8 @@ export const TemplateEditor: React.FC<TemplateEditorProps> = ({
       }
       const newParams = {
         userInput: '',
-        customParams: defaultParams
+        customParams: defaultParams,
+        technique: 'none'
       };
       setParams(newParams);
       onParamsChange(newParams);
@@ -55,6 +58,12 @@ export const TemplateEditor: React.FC<TemplateEditorProps> = ({
       ...params,
       customParams: { ...params.customParams, [key]: value }
     };
+    setParams(newParams);
+    onParamsChange(newParams);
+  };
+
+  const handleTechniqueChange = (techniqueId: string) => {
+    const newParams = { ...params, technique: techniqueId };
     setParams(newParams);
     onParamsChange(newParams);
   };
@@ -105,6 +114,36 @@ export const TemplateEditor: React.FC<TemplateEditorProps> = ({
               {params.userInput.length} characters
             </span>
           </div>
+        </div>
+
+        {/* Prompt Technique Selector */}
+        <div className="editor-section">
+          <label className="section-label" htmlFor="technique-select">
+            Prompt Technique
+            <span className="technique-help">Choose a prompting strategy for better results</span>
+          </label>
+          <select
+            id="technique-select"
+            className="technique-select"
+            value={params.technique || 'none'}
+            onChange={(e) => handleTechniqueChange(e.target.value)}
+          >
+            {promptTechniques.map((technique) => (
+              <option key={technique.id} value={technique.id}>
+                {technique.name}
+              </option>
+            ))}
+          </select>
+          {params.technique && params.technique !== 'none' && (
+            <div className="technique-description">
+              {promptTechniques.find(t => t.id === params.technique)?.description}
+              {promptTechniques.find(t => t.id === params.technique)?.example && (
+                <div className="technique-example">
+                  💡 {promptTechniques.find(t => t.id === params.technique)?.example}
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Parameters */}

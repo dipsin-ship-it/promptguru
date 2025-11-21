@@ -11,6 +11,7 @@
 
 import Ajv, { type JSONSchemaType } from 'ajv';
 import type { Adapter, PromptParams, ValidationResult } from './types';
+import { applyTechnique } from './promptTechniques';
 
 export class PromptEngine {
   private ajv: Ajv;
@@ -25,17 +26,25 @@ export class PromptEngine {
    * @param adapter - The adapter configuration
    * @param userInput - User's prompt text
    * @param params - Additional parameters
+   * @param technique - Optional prompt technique to apply
    * @returns The built prompt string
    */
   build(
     adapter: Adapter,
     userInput: string,
-    params: Record<string, number | string> = {}
+    params: Record<string, number | string> = {},
+    technique?: string
   ): string {
+    // First, apply prompt technique if selected
+    let enhancedInput = userInput;
+    if (technique && technique !== 'none') {
+      enhancedInput = applyTechnique(userInput, technique);
+    }
+
     let prompt = adapter.prompt_template;
 
-    // Replace {input} or {user_input} with user's input
-    prompt = prompt.replace(/\{input\}|\{user_input\}/g, userInput);
+    // Replace {input} or {user_input} with enhanced input
+    prompt = prompt.replace(/\{input\}|\{user_input\}/g, enhancedInput);
 
     // Replace parameter placeholders
     for (const [key, value] of Object.entries(params)) {

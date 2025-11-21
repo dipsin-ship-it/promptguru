@@ -9,6 +9,7 @@ import React, { useState, useEffect } from 'react';
 import './PromptPlayground.css';
 import type { Adapter, PromptParams } from '../lib/types';
 import { PromptEngine } from '../lib/promptEngine';
+import { optimizePrompt } from '../lib/promptTechniques';
 
 interface PromptPlaygroundProps {
   adapter: Adapter | null;
@@ -22,13 +23,20 @@ export const PromptPlayground: React.FC<PromptPlaygroundProps> = ({
   const [builtPrompt, setBuiltPrompt] = useState<string>('');
   const [tokenEstimate, setTokenEstimate] = useState<number>(0);
   const [copyStatus, setCopyStatus] = useState<'idle' | 'copied'>('idle');
+  const [isOptimized, setIsOptimized] = useState<boolean>(false);
 
   useEffect(() => {
     if (adapter && params.userInput) {
       try {
         const engine = new PromptEngine();
-        const built = engine.build(adapter, params.userInput, params.customParams);
+        const built = engine.build(
+          adapter,
+          params.userInput,
+          params.customParams,
+          params.technique
+        );
         setBuiltPrompt(built);
+        setIsOptimized(false); // Reset optimization flag when params change
 
         // Simple token estimation (rough: ~4 chars per token)
         const estimatedTokens = Math.ceil(built.length / 4);
@@ -43,6 +51,22 @@ export const PromptPlayground: React.FC<PromptPlaygroundProps> = ({
       setTokenEstimate(0);
     }
   }, [adapter, params]);
+
+  const handleOptimize = () => {
+    if (!adapter || !builtPrompt) return;
+
+    try {
+      const optimized = optimizePrompt(builtPrompt, adapter.id);
+      setBuiltPrompt(optimized);
+      setIsOptimized(true);
+
+      // Update token estimate
+      const estimatedTokens = Math.ceil(optimized.length / 4);
+      setTokenEstimate(estimatedTokens);
+    } catch (err) {
+      console.error('Failed to optimize prompt:', err);
+    }
+  };
 
   const handleCopy = async () => {
     try {
@@ -122,6 +146,14 @@ export const PromptPlayground: React.FC<PromptPlaygroundProps> = ({
         {/* Actions */}
         <div className="playground-section">
           <div className="action-buttons">
+            <button
+              onClick={handleOptimize}
+              disabled={!builtPrompt || isOptimized}
+              className={isOptimized ? 'success' : 'optimize-btn'}
+              title="Enhance prompt with quality improvements"
+            >
+              {isOptimized ? '✓ Optimized!' : '✨ Optimize'}
+            </button>
             <button
               onClick={handleCopy}
               disabled={!builtPrompt}
