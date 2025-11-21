@@ -1,0 +1,38 @@
+{
+  "id": "figma",
+  "display_name": "Figma Design (AI)",
+  "system_message": "Generate Figma-compatible design specifications. Describe the UI/UX elements, layout, colors, typography, and interactions.",
+  "parameters": {
+    "width": [320, 1920],
+    "height": [568, 1080],
+    "components": [1, 50],
+    "complexity": [1.0, 10.0]
+  },
+  "prompt_template": "Design Brief: {user_input}\n\nDesign Parameters:\n- Canvas Size: {width}x{height}\n- Component Count: {components}\n- Complexity Level: {complexity}\n\nDesign System:\n- Style: Modern, clean, professional\n- Typography: Clear hierarchy, readable fonts\n- Colors: Harmonious palette, accessible contrast\n- Layout: Responsive, well-structured\n- Components: Reusable, consistent\n\nDeliverables:\n- Component library\n- Design tokens\n- Layout specifications\n- Interaction states",
+  "metadata": {
+    "category": "design",
+    "supports_image": false,
+    "supports_video": false,
+    "provider": "Figma",
+    "presets": {
+      "mobile": {
+        "width": 375,
+        "height": 812,
+        "components": 10,
+        "complexity": 5.0
+      },
+      "desktop": {
+        "width": 1440,
+        "height": 900,
+        "components": 20,
+        "complexity": 7.0
+      },
+      "component": {
+        "width": 400,
+        "height": 300,
+        "components": 5,
+        "complexity": 3.0
+      }
+    }
+  }
+}

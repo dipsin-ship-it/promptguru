@@ -1,0 +1,116 @@
+/**
+ * AdapterList Styles
+ */
+
+.adapter-list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+}
+
+.adapter-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+}
+
+.adapter-list-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--color-text);
+}
+
+.adapter-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 var(--spacing-sm);
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.adapter-list-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-sm);
+}
+
+.adapter-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  width: 100%;
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.adapter-item:hover {
+  background-color: var(--color-bg);
+  border-color: var(--color-primary-light);
+  transform: translateX(2px);
+}
+
+.adapter-item.selected {
+  background-color: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.adapter-item.selected .adapter-id {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.adapter-icon {
+  font-size: 24px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.adapter-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.adapter-name {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.adapter-id {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.error-message {
+  color: var(--color-error);
+  padding: var(--spacing-md);
+  text-align: center;
+}

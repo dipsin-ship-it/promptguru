@@ -1,0 +1,46 @@
+{
+  "id": "runway_video",
+  "display_name": "Runway (Video)",
+  "system_message": "Generate video content using Runway AI. Describe the scene, motion, camera movement, timing, and visual style.",
+  "parameters": {
+    "duration": [1, 10],
+    "fps": [15, 60],
+    "width": [256, 1920],
+    "height": [256, 1080],
+    "motion_strength": [0.0, 10.0],
+    "guidance_scale": [1.0, 20.0]
+  },
+  "prompt_template": "Video Prompt: {user_input}\n\nVideo Parameters:\n- Duration: {duration} seconds\n- Frame Rate: {fps} fps\n- Resolution: {width}x{height}\n- Motion Strength: {motion_strength}\n- Guidance Scale: {guidance_scale}\n\nStyle: cinematic, smooth motion, professional quality\n\nCamera: Dynamic, following subject\nLighting: Dramatic, well-balanced\nMood: Engaging, visually striking",
+  "metadata": {
+    "category": "video",
+    "supports_image": true,
+    "supports_video": true,
+    "provider": "Runway",
+    "presets": {
+      "cinematic": {
+        "duration": 5,
+        "fps": 24,
+        "width": 1920,
+        "height": 1080,
+        "motion_strength": 5.0,
+        "guidance_scale": 10.0
+      },
+      "social": {
+        "duration": 3,
+        "fps": 30,
+        "width": 1080,
+        "height": 1920,
+        "motion_strength": 7.0,
+        "guidance_scale": 8.0
+      },
+      "quick": {
+        "duration": 2,
+        "fps": 30,
+        "width": 512,
+        "height": 512,
+        "motion_strength": 3.0,
+        "guidance_scale": 7.0
+      }
+    }
+  }
+}

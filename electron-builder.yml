@@ -1,0 +1,48 @@
+appId: com.dipankar.prompt-guru
+productName: Prompt-Guru
+copyright: Copyright © 2025 Dipankar
+
+directories:
+  output: dist
+  buildResources: build
+
+files:
+  - dist/main/**/*
+  - renderer/dist/**/*
+  - package.json
+
+extraResources:
+  - from: renderer/src/lib/adapters
+    to: adapters
+
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+  icon: build/icon.ico
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+
+mac:
+  target:
+    - target: dmg
+      arch:
+        - x64
+        - arm64
+  category: public.app-category.developer-tools
+  icon: build/icon.icns
+
+linux:
+  target:
+    - target: AppImage
+      arch:
+        - x64
+  category: Development
+  icon: build/icon.png
+
+publish: null

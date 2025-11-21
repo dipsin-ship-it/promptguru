@@ -1,0 +1,207 @@
+/**
+ * TemplateEditor Styles
+ */
+
+.template-editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+}
+
+.editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+}
+
+.editor-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--color-text);
+}
+
+.adapter-badge {
+  display: inline-block;
+  padding: var(--spacing-xs) var(--spacing-md);
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.editor-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-md);
+}
+
+.editor-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: var(--spacing-xl);
+  text-align: center;
+}
+
+.editor-section {
+  margin-bottom: var(--spacing-lg);
+}
+
+.section-label {
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-text);
+}
+
+.system-message-display {
+  padding: var(--spacing-md);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.prompt-input {
+  width: 100%;
+  padding: var(--spacing-md);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  resize: vertical;
+  min-height: 120px;
+  transition: border-color 0.2s ease;
+}
+
+.prompt-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(10, 102, 194, 0.1);
+}
+
+.input-meta {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--spacing-xs);
+}
+
+.char-count {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.parameters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.parameter-control {
+  padding: var(--spacing-md);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.parameter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.parameter-name {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+.parameter-value {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.parameter-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--color-border);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.parameter-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.parameter-slider::-webkit-slider-thumb:hover {
+  background: var(--color-primary-dark);
+  transform: scale(1.1);
+}
+
+.parameter-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.parameter-slider::-moz-range-thumb:hover {
+  background: var(--color-primary-dark);
+  transform: scale(1.1);
+}
+
+.parameter-range {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--spacing-xs);
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.template-preview {
+  padding: var(--spacing-md);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+}
+
+.template-preview code {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  white-space: pre-wrap;
+  word-break: break-word;
+}

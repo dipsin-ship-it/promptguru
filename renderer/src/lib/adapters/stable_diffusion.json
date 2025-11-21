@@ -1,0 +1,39 @@
+{
+  "id": "stable_diffusion",
+  "display_name": "Stable Diffusion (Image)",
+  "system_message": "Generate high-quality images using Stable Diffusion. Describe the visual elements, style, composition, lighting, and mood.",
+  "parameters": {
+    "width": [256, 2048],
+    "height": [256, 2048],
+    "steps": [1, 150],
+    "guidance_scale": [1.0, 30.0],
+    "seed": [-1, 999999999]
+  },
+  "prompt_template": "Prompt: {user_input}\n\nNegative Prompt: low quality, blurry, distorted, watermark\n\nImage Parameters:\n- Resolution: {width}x{height}\n- Steps: {steps}\n- Guidance Scale: {guidance_scale}\n- Seed: {seed}\n\nStyle: photoreal, highly detailed, 8k uhd, professional photography",
+  "metadata": {
+    "category": "image",
+    "supports_image": true,
+    "supports_video": false,
+    "provider": "Stability AI",
+    "presets": {
+      "photoreal": {
+        "steps": 50,
+        "guidance_scale": 7.5,
+        "width": 1024,
+        "height": 1024
+      },
+      "artistic": {
+        "steps": 80,
+        "guidance_scale": 12.0,
+        "width": 768,
+        "height": 768
+      },
+      "quick": {
+        "steps": 20,
+        "guidance_scale": 7.0,
+        "width": 512,
+        "height": 512
+      }
+    }
+  }
+}

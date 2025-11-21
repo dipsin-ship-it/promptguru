@@ -1,0 +1,104 @@
+/**
+ * Header Styles
+ * Includes embossed title effect
+ */
+
+.app-header {
+  background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.app-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: -0.5px;
+  margin: 0;
+
+  /* Embossed effect */
+  text-shadow:
+    0 1px 0 #ffffff,
+    0 2px 1px rgba(0, 0, 0, 0.1),
+    0 -1px 0 rgba(0, 0, 0, 0.15);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Additional depth */
+  position: relative;
+}
+
+.app-title::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.author-section {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.author-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.linkedin-button {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.linkedin-button:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.linkedin-button:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.linkedin-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .app-title {
+    font-size: 24px;
+  }
+
+  .author-section {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+}

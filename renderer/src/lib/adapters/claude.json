@@ -1,0 +1,18 @@
+{
+  "id": "claude",
+  "display_name": "Claude (Anthropic)",
+  "system_message": "You are Claude, an AI assistant created by Anthropic to be helpful, harmless, and honest.",
+  "parameters": {
+    "temperature": [0.0, 1.0],
+    "max_tokens": [1, 4096],
+    "top_p": [0.0, 1.0],
+    "top_k": [0, 500]
+  },
+  "prompt_template": "System: {system_message}\n\nHuman: {user_input}\n\nParameters:\n- Temperature: {temperature}\n- Max Tokens: {max_tokens}\n- Top P: {top_p}\n- Top K: {top_k}\n\nAssistant:",
+  "metadata": {
+    "category": "text",
+    "supports_image": false,
+    "supports_video": false,
+    "provider": "Anthropic"
+  }
+}
